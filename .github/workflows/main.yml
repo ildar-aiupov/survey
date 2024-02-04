@@ -25,7 +25,7 @@ jobs:
         with:
           context: ./postgres/
           push: true
-          tags: ildarbon/survey_db:latest
+          tags: ildarbon/survey123_db:latest
 
   build_backend_and_push_to_docker_hub:
     name: Push backend Docker image to DockerHub
@@ -45,7 +45,7 @@ jobs:
         with:
           context: ./django-prj/
           push: true
-          tags: ildarbon/survey_backend:latest
+          tags: ildarbon/survey123_backend:latest
 
   build_nginx_and_push_to_docker_hub:
     name: Push nginx Docker image to DockerHub
@@ -65,7 +65,7 @@ jobs:
         with:
           context: ./nginx/
           push: true
-          tags: ildarbon/survey_nginx:latest
+          tags: ildarbon/survey123_nginx:latest
 
   deploy:
     runs-on: ubuntu-latest

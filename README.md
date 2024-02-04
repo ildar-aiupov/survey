@@ -41,7 +41,7 @@ sudo apt-get install docker-compose-plugin
 
 - Клонировать репозиторий:
 ```
-git clone git@github.com:ildar-aiupov/survey.git
+git clone git@github.com:ildar-aiupov/survey123.git
 ```
 
 - В корне проекта переименовать файл `.env.example` (настройки Джанго и подключения к базе данных) в файл `.env` (команда `mv .env.example .env`). Все настройки рабочие. 

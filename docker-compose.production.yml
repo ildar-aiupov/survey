@@ -7,7 +7,7 @@ volumes:
 services:
 
   db:
-    image: ildarbon/survey_db
+    image: ildarbon/survey123_db
     container_name: db
     env_file: .env
     ports:
@@ -21,7 +21,7 @@ services:
       retries: 30  
 
   backend:
-    image: ildarbon/survey_backend
+    image: ildarbon/survey123_backend
     container_name: backend
     env_file: .env
     depends_on:
@@ -31,7 +31,7 @@ services:
       - static:/backend_static
 
   nginx:
-    image: ildarbon/survey_nginx
+    image: ildarbon/survey123_nginx
     container_name: nginx
     env_file: .env
     ports:
