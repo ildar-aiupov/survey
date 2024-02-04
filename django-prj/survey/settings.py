@@ -89,4 +89,4 @@ STATIC_ROOT = BASE_DIR / "collected_static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ["https://survey.didns.ru"]
+CSRF_TRUSTED_ORIGINS = ["https://survey123.hopto.org"]
