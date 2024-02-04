@@ -1,0 +1,16 @@
+{% load static %}
+  <div class="row p-3 border-bottom border-white text-center">
+    <div class="col-12">
+      <a href="{% url 'main:index' %}">
+        Начальный экран
+      </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="{% url 'main:delete_history' %}">
+        Удалить историю опросов
+      </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="{% url 'main:show_statistics' %}">
+        Показать статистику
+      </a>
+    </div>
+  </div>

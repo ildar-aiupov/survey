@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Опросник{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mx-2">
+    <div class="col-5 p-5">
+		<div class="card">
+			<div class="card-header text-center">
+				Вам доступны следующие (не пройденные вами) опросы. Для повторного прохождения опросов необходимо в меню удалить историю опросов.
+			</div>
+			<div class="card-body">
+				<ul class="list-group list-group-vertical">
+					{% for survey in surveys %}
+						<li class="list-group-item col-12 border-white light-grey rounded-0">
+							<a href="{% url 'main:pass_survey' survey.id %}">
+								{{ survey.name }}<br>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>		
+
+{% endblock %}
