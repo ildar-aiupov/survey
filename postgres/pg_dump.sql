@@ -536,7 +536,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$720000$XUcdsr8h17MbAK4IUsyPrJ$zbnpadSbo/8dfg5PoxwRk6QF1VvVSIJy2vnpN40ePcI=	2024-02-03 12:37:17.344187+00	t	admin			admin@admin.ru	t	t	2024-02-02 11:14:46.188029+00
+1	pbkdf2_sha256$720000$XUcdsr8h17MbAK4IUsyPrJ$zbnpadSbo/8dfg5PoxwRk6QF1VvVSIJy2vnpN40ePcI=	2024-02-08 22:18:36.942353+00	t	admin			admin@admin.ru	t	t	2024-02-02 11:14:46.188029+00
 \.
 
 
@@ -841,6 +841,9 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 23	main	0005_rename_question_variant_parent_question_and_more	2024-02-03 14:27:49.508084+00
 24	main	0006_alter_variant_next_question	2024-02-03 15:36:12.337163+00
 25	main	0007_rename_parent_question_variant_question	2024-02-04 11:39:58.155229+00
+26	main	0008_alter_questionsession_unique_together	2024-02-08 23:03:00.889353+00
+27	main	0009_alter_answer_options_alter_question_options_and_more	2024-02-08 23:31:33.359706+00
+28	main	0010_alter_question_name_alter_survey_name_and_more	2024-02-08 23:40:45.132377+00
 \.
 
 
@@ -851,7 +854,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 dfrq3py9vjnlq6d7fsbnmpg3vz9zege0	.eJxVjMsOgjAUBf-la9NcSlusS_d8A7mvWtRAQmFl_HclYaHbMzPnZQbc1jJsVZdhFHMxjTn9boT80GkHcsfpNluep3UZye6KPWi1_Sz6vB7u30HBWr41qTrPDGevkBVcQ4IuSetaocyJPQEEcl3GDNAyYYw-5K4LKUViEfP-AAtqONw:1rVrWI:B5rss5y_gUYhBt2EPaxJnLb7uq4UO-6DTmsvpJ0h6I0	2024-02-16 11:15:42.801767+00
 pmi6725lbfxh65a6qbmgq1mnyy2wgq9c	e30:1rWFDJ:qlaxqoguJZcvqvpE41pBZ81xXs9tSOfvwSxUlRmPk38	2024-02-17 12:33:41.706077+00
-wvlcsw7tj5d299fpvq2j0bd9fxfch5ih	.eJxVjMsOgjAUBf-la9NcSlusS_d8A7mvWtRAQmFl_HclYaHbMzPnZQbc1jJsVZdhFHMxjTn9boT80GkHcsfpNluep3UZye6KPWi1_Sz6vB7u30HBWr41qTrPDGevkBVcQ4IuSetaocyJPQEEcl3GDNAyYYw-5K4LKUViEfP-AAtqONw:1rWFGn:1WLwyPeeTsOkhXe7Bn9R4zLnBSQQkcQjD8PIQMrB7sY	2024-02-17 12:37:17.348372+00
+tzznsmndwwmnr5x6e6vyggms1a2yuern	.eJxVjDEOwjAMRe-SGUUpTtqGkZ0zRHZskwJqpaadEHdHkTrA-t97_20S7ltJe5U1TWwupjOn340wP2VugB843xebl3lbJ7JNsQet9rawvK6H-3dQsJZWIzIPPLIKCus56-CDBAWnne-GjATBjToSRRdJvEBAiOCxh14B2Xy-NIs5Ug:1rYCj6:GWZ9FrmDJ2LYKjXYdCZYnVCcHGRT9CY7kW7XnrmX2OU	2024-02-22 22:18:36.946719+00
 \.
 
 
@@ -1015,14 +1018,14 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: survey
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 25, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 28, true);
 
 
 --
 -- Name: main_done_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: survey
 --
 
-SELECT pg_catalog.setval('public.main_done_answer_id_seq', 194, true);
+SELECT pg_catalog.setval('public.main_done_answer_id_seq', 260, true);
 
 
 --
@@ -1036,7 +1039,7 @@ SELECT pg_catalog.setval('public.main_question_id_seq', 16, true);
 -- Name: main_questionsession_id_seq; Type: SEQUENCE SET; Schema: public; Owner: survey
 --
 
-SELECT pg_catalog.setval('public.main_questionsession_id_seq', 174, true);
+SELECT pg_catalog.setval('public.main_questionsession_id_seq', 238, true);
 
 
 --
@@ -1050,7 +1053,7 @@ SELECT pg_catalog.setval('public.main_survey_id_seq', 3, true);
 -- Name: main_surveysession_id_seq; Type: SEQUENCE SET; Schema: public; Owner: survey
 --
 
-SELECT pg_catalog.setval('public.main_surveysession_id_seq', 100, true);
+SELECT pg_catalog.setval('public.main_surveysession_id_seq', 134, true);
 
 
 --
@@ -1197,6 +1200,14 @@ ALTER TABLE ONLY public.django_session
 
 
 --
+-- Name: main_answer main_answer_survey_id_question_id_session_f841bad3_uniq; Type: CONSTRAINT; Schema: public; Owner: survey
+--
+
+ALTER TABLE ONLY public.main_answer
+    ADD CONSTRAINT main_answer_survey_id_question_id_session_f841bad3_uniq UNIQUE (survey_id, question_id, session);
+
+
+--
 -- Name: main_answer main_done_answer_pkey; Type: CONSTRAINT; Schema: public; Owner: survey
 --
 
@@ -1221,6 +1232,14 @@ ALTER TABLE ONLY public.main_questionsession
 
 
 --
+-- Name: main_questionsession main_questionsession_question_id_session_c629dc4d_uniq; Type: CONSTRAINT; Schema: public; Owner: survey
+--
+
+ALTER TABLE ONLY public.main_questionsession
+    ADD CONSTRAINT main_questionsession_question_id_session_c629dc4d_uniq UNIQUE (question_id, session);
+
+
+--
 -- Name: main_survey main_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: survey
 --
 
@@ -1234,6 +1253,14 @@ ALTER TABLE ONLY public.main_survey
 
 ALTER TABLE ONLY public.main_surveysession
     ADD CONSTRAINT main_surveysession_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: main_surveysession main_surveysession_survey_id_session_197656aa_uniq; Type: CONSTRAINT; Schema: public; Owner: survey
+--
+
+ALTER TABLE ONLY public.main_surveysession
+    ADD CONSTRAINT main_surveysession_survey_id_session_197656aa_uniq UNIQUE (survey_id, session);
 
 
 --
